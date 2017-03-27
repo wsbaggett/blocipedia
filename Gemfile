@@ -26,6 +26,10 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
+gem 'rails-controller-testing'
+gem 'bootstrap-sass'
+gem 'devise'
+gem 'figaro', '1.0'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -40,6 +44,9 @@ group :production do
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails', '~> 3.0'
+  gem 'pry'
+  gem 'shoulda'
   gem 'byebug', platform: :mri
 end
 
