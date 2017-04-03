@@ -110,6 +110,8 @@ GEM
       method_source (~> 0.8.1)
       slop (~> 3.4)
     puma (3.8.2)
+    pundit (1.1.0)
+      activesupport (>= 3.0.0)
     rack (2.0.1)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -233,6 +235,7 @@ DEPENDENCIES
   pg
   pry
   puma (~> 3.0)
+  pundit
   rails (~> 5.0.1)
   rails-controller-testing
   rails_12factor
@@ -243,7 +246,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   turbolinks (~> 5)
-  tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
 

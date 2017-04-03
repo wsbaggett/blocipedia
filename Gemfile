@@ -31,6 +31,7 @@ gem 'bootstrap-sass'
 gem 'devise'
 gem 'figaro', '1.0'
 gem 'listen'
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
@@ -52,6 +53,7 @@ group :development, :test do
   gem 'pry'
   gem 'shoulda'
   gem 'byebug', platform: :mri
+  gem 'pundit'
 end
 
 group :development do
@@ -64,4 +66,4 @@ group :development do
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+#gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
