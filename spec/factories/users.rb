@@ -7,6 +7,6 @@ FactoryGirl.define do
    password pw
    password_confirmation pw
    confirmed_at Time.now
-   role :member
+   role :standard
  end
 end
