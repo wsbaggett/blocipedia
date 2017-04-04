@@ -9,18 +9,30 @@ let(:user) { create(:user) }
   end
 
   describe "GET show" do
-     it "returns http success" do
-       get :show, id: user
-       expect(response).to have_http_status(:success)
-     end
+
      it "renders the #show view" do
        get :show, id: user.id
        expect(response).to render_template :show
      end
      it "assigns current_user to @user" do
        get :show, {id: user.id}
- # #18
        expect(assigns(:user)).to eq(user)
+     end
+   end
+
+   describe "PUT downgrade" do
+     it "assigns current_user to @user" do
+       put :downgrade, {id: user.id}
+       expect(assigns(:user)).to eq(user)
+     end
+
+     it "updates current_user account role to standard" do
+       put :downgrade, {id: user.id}
+       expect(user.role).to eql("standard")
+     end
+
+     it "redirects to the user path" do
+       expect(response).to redirect_to user_path(user.id)
      end
    end
 

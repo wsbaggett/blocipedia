@@ -5,10 +5,12 @@ RSpec.describe User, type: :model do
 
   let(:user) { create(:user) }
 
+  it { is_expected.to have_many(:wikis) }
+
   describe "attributes" do
 
     it "should have an email attribute" do
-      expect(user).to have_attributes(email: "user34@factory.com")
+      expect(user).to have_attributes(email: "user36@factory.com")
     end
 
      it "responds to role" do

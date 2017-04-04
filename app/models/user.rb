@@ -8,5 +8,9 @@ class User < ApplicationRecord
 
   before_save { self.role ||= :standard }
 
+  def downgrade
+   self.standard!
+  end
+
   enum role: [:standard, :premium, :admin]
 end

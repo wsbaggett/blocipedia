@@ -1,5 +1,5 @@
 <div class="container">
-<h1>All Wikis</h1>
+<h1>All Wikis</h1> <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-default' %>
  <% @wikis.each do |wiki| %>
  <div class="media">
    <div class="media-body">
@@ -9,7 +9,4 @@
    </div>
  </div>
  <% end %>
-   <div class="col-md-4">
-   <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-default' %>
-   </div>
- </div>
+</div>

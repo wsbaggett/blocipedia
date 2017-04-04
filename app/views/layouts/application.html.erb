@@ -14,6 +14,7 @@
      <ul class="nav nav-tabs">
        <% if user_signed_in? %>
    <%= link_to "Blocipedia", welcome_index_path %> |
+   <%= link_to "User Info", user_path(current_user) %> |
    <%= link_to "Wikis", root_path %>
    <div class="pull-right">
    Signed in as: <strong><%= current_user.email %></strong> |

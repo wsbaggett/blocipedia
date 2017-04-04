@@ -1,4 +1,17 @@
 <div class="container">
 <h1>User</h1>
 <h3> Email: <%= @user.email %> </h3>
+<h3> Account type: <%= @user.role %> </h3>
+<div class="col-md-8">
+<% if @user.role != 'premium' %>
+<h4> Premium Account Upgrade - $15 </h4>
+<%= link_to "Upgrade Account", new_charge_path, class: 'btn btn-success' %>
+<% end %>
+</div>
+<div class="col-md-8">
+<% if @user.role == 'premium' %>
+<h4> Downgrade to Standard Account </h4>
+<%= link_to 'Downgrade', downgrade_user_path(current_user), method: :put, class: 'btn btn-danger' %>
+<% end %>
+</div>
 </div>
