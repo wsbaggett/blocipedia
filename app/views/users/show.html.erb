@@ -11,7 +11,7 @@
 <div class="col-md-8">
 <% if @user.role == 'premium' %>
 <h4> Downgrade to Standard Account </h4>
-<%= link_to 'Downgrade', downgrade_user_path(current_user), method: :put, class: 'btn btn-danger' %>
+<%= link_to 'Downgrade', downgrade_user_path(current_user), method: :put, class: 'btn btn-danger', data: {confirm: 'All of your wikis will become public, are you sure you want to downgrade?'} %>
 <% end %>
 </div>
 </div>

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe UsersController, type: :controller do
 
 let(:user) { create(:user) }
+let(:wiki) { create(:wiki) }
 
   before :each do
     sign_in user
@@ -31,8 +32,13 @@ let(:user) { create(:user) }
        expect(user.role).to eql("standard")
      end
 
+     it "updates current_user private wikis to public wikis" do
+       put :downgrade, {id: user.id}
+       expect(wiki.private).to eql(false)
+     end
+
      it "redirects to the user path" do
-       expect(response).to redirect_to user_path(user.id)
+       expect(response).to have_http_status(:success)
      end
    end
 

@@ -6,6 +6,13 @@
      <h4 class="media-heading">
        <%= link_to wiki.title, wiki %>
      </h4>
+     <p> <%= wiki.body %> </p>
+        <h5>Created <%= time_ago_in_words wiki.created_at %> ago by <%= wiki.user.email || current_user.email %></h5>
+        <p>*<% if wiki.private %>
+              <small>private</small>
+            <% else %>
+              <small>public</small>
+            <% end %> </p>
    </div>
  </div>
  <% end %>
