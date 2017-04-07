@@ -1,6 +1,7 @@
 class WikisController < ApplicationController
   def index
     @wikis = policy_scope(Wiki)
+    @wikis = Wiki.order("created_at DESC")
   end
 
   def show

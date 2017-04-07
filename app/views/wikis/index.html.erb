@@ -1,19 +1,19 @@
 <div class="container">
-<h1>All Wikis</h1> <%= link_to "New Wiki", new_wiki_path, class: 'btn btn-default' %>
+<h1>All Wikis</h1>
+<%= link_to "New Wiki", new_wiki_path, class: 'btn btn-default' %>
+<hr />
  <% @wikis.each do |wiki| %>
- <div class="media">
-   <div class="media-body">
-     <h4 class="media-heading">
-       <%= link_to wiki.title, wiki %>
-     </h4>
-     <p> <%= wiki.body %> </p>
+     <h3>
+       <%= link_to markdown(wiki.title), wiki %>
+     </h3>
         <h5>Created <%= time_ago_in_words wiki.created_at %> ago by <%= wiki.user.email || current_user.email %></h5>
         <p>*<% if wiki.private %>
               <small>private</small>
             <% else %>
               <small>public</small>
             <% end %> </p>
-   </div>
- </div>
+     <% if wiki != @wikis.last %>
+         <hr />
+     <% end %>
  <% end %>
-</div>
+ </div>
