@@ -6,7 +6,10 @@ class User < ApplicationRecord
 
   has_many :wikis
 
-  before_save { self.role ||= :standard }
+  has_many :collaborators
+  has_many :collaborating_wikis, through: :collaborators, source: :wiki
+
+  before_create { self.role ||= :standard }
 
   def downgrade
    self.standard!

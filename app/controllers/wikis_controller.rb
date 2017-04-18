@@ -1,7 +1,7 @@
 class WikisController < ApplicationController
   def index
+    #@wikis = Wiki.order("created_at DESC")
     @wikis = policy_scope(Wiki)
-    @wikis = Wiki.order("created_at DESC")
   end
 
   def show
@@ -53,6 +53,35 @@ class WikisController < ApplicationController
        flash.now[:alert] = "There was an error deleting the wiki."
        render :show
      end
+  end
+
+  def delete_collaborator
+    @wiki = Wiki.find(params[:id])
+    @user = User.find(params[:user_id])
+
+     flash[:notice] = "Collaborating user was deleted successfully."
+
+    @wiki.collaborating_users.delete(@user)
+    redirect_to wiki_path
+  end
+
+  def add_collaborator
+    @wiki = Wiki.find(params[:id])
+    @user = User.find_by(email: params[:coll_email])
+
+    if @user.nil?
+      flash[:alert] = "User not found!"
+      redirect_to wiki_path(@wiki)
+      return
+    end
+
+    if @wiki.collaborating_users.include?(@user)
+       flash[:alert] = "Already a collaborator on this wiki!"
+       redirect_to wiki_path(@wiki)
+    else
+      @wiki.collaborating_users << @user
+      redirect_to wiki_path(@wiki), notice: "Collaborating user was added successfully."
+    end
   end
 
   private

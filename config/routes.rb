@@ -4,10 +4,17 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show] do
     member do
-      put :downgrade 
+      put :downgrade
     end
   end
-  resources :wikis
+  resources :wikis do
+    member do
+      put :add_collaborator
+    end
+    member do
+      delete :delete_collaborator
+    end
+  end
   resources :charges, only: [:new, :create]
 
   get 'welcome/index'

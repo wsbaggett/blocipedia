@@ -8,7 +8,7 @@ class WikiPolicy < ApplicationPolicy
 
   def show?
      if @wiki.private
-        @user.premium? || @user.admin?
+        (@user.premium? && @wiki.user == @user) || @user.admin? || @wiki.collaborating_users.include?(@user)
      else
         @user.standard? || @user.premium? || @user.admin?
      end
@@ -18,29 +18,33 @@ class WikiPolicy < ApplicationPolicy
      @user.present?
    end
 
-  class Scope < Scope
-    attr_reader :user, :scope
+   class Scope
+      attr_reader :user, :scope
 
-    def initialize(user, scope)
-      @user  = user
-      @scope = scope
-    end
+      def initialize(user, scope)
+        @user = user
+        @scope = scope
+      end
 
-    def resolve
-       if @user.admin?
-         @scope.all
-       elsif @user.standard?
-         @scope.where(private: false)
-       elsif @user.premium?
-         wikis = []
-         all_wikis = @scope.all
-         all_wikis.each do |wiki|
-          if !wiki.private? || wiki.user == @user
-            wikis << wiki
+      def resolve
+        wikis = []
+        all_wikis = scope.all.order("created_at DESC")
+        if user.role == 'admin'
+          wikis = all_wikis # if the user is an admin, show them all the wikis
+        elsif user.role == 'premium'
+          all_wikis.each do |wiki|
+            if wiki.public? || wiki.user == @user || wiki.collaborating_users.include?(@user)
+              wikis << wiki # if the user is premium, only show them public wikis, or that private wikis they created, or private wikis they are a collaborator on
+            end
           end
-         end
-          wikis
+        else # this is the lowly standard user
+          all_wikis.each do |wiki|
+            if wiki.public? || wiki.collaborating_users.include?(@user)
+              wikis << wiki # only show standard users public wikis and private wikis they are a collaborator on
+            end
+          end
         end
-     end
-  end
+        wikis # return the wikis array we've built up
+      end
+    end
 end
